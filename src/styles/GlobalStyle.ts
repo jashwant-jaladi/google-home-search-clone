@@ -1,30 +1,20 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
-  * {
+  body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    background-color: #fff;
+    color: #000;
+    transition: all 0.2s ease-in-out;
+    height: 100vh;
   }
 
-  body {
-    font-family: 'Arial', sans-serif;
-    background: #fff;
-    color: #202124;
-  }
-
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
-
-  button {
-    cursor: pointer;
-    border: none;
-    background: none;
-  }
-
-  input {
-    outline: none;
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: #202124; 
+      color: #e8eaed;
+    }
   }
 `;
