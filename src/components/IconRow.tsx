@@ -25,7 +25,7 @@ const IconRow = () => {
     <IoMdMusicalNote size={24} color="#E94335" />
   </IconRowItem>
 </IconRowContainer>
-
+    <hr style={{ border: "1px solid rgb(102, 104, 107)", margin: "20px 0", width: "100vw" }} />
     </>
   )
 }
