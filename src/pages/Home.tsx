@@ -1,6 +1,6 @@
 import SearchBar from "../components/SearchBar"
 import IconRow from "../components/IconRow"
-import Fidgets from "../components/Fidgets"
+import Widget from "../components/Widget"
 import Feed from "../components/Feed"
 import Header from "../components/Header"
 import Layout from "../components/Layout"
@@ -13,7 +13,7 @@ const Home = () => {
         <Header />
         <SearchBar />
         <IconRow />
-        <Fidgets />
+        <Widget />
         <Feed />
         <Footer />
       </Layout>
