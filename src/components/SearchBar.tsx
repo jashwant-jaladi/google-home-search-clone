@@ -1,4 +1,4 @@
-import { GoogleLogo, SearchWrapper, SearchInput } from "../styles/SearchBar.styles"
+import { GoogleLogo, SearchWrapper, SearchInput} from "../styles/SearchBar.styles"
 import { FiSearch } from "react-icons/fi"
 import { BsMicFill } from "react-icons/bs"
 import { SiGooglelens } from "react-icons/si";

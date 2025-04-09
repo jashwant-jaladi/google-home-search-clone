@@ -24,7 +24,6 @@ const Feed = () => {
   useEffect(() => {
     getFeed()
   }, [])
-  console.log(feed)
   if (loading) {
     return <div>Loading...</div>
   }

@@ -50,7 +50,7 @@ export const WidgetItemRow = styled.div`
 `;
 
 export const WeatherIcon = styled.img`
-    width: 16px;
-    height: 16px;
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
-    background-color: #f0f0f0;`
+    ;`
