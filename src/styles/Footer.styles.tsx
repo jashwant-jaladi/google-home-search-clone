@@ -3,15 +3,15 @@ import styled from "styled-components";
 export const FooterContainer = styled.footer`
   display: flex;
   justify-content: space-around;
-  align-items: top;
-  padding-bottom: 50px;
-  padding-top: 20px;
-  position: absolute;
+  align-items: flex-start;
+  padding: 20px 0;
+  position: fixed;
   bottom: 0;
-  
   width: 100%;
   background-color: #303134;
+  z-index: 100;
 `;
+
 
 type IconButtonProps = {
     isActive?: boolean;

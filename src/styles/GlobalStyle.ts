@@ -12,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
     background-color: #fff;
     color: #000;
     transition: all 0.2s ease-in-out;
-    height: 100%; 
+    min-height: 100vh;
   }
 
   #root {
