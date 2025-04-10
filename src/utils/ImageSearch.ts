@@ -1,6 +1,6 @@
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
-const handleImageInput = async () => {
+const handleImageInput = async (navigate: (path: string) => void) => {
   console.log("Image input clicked");
   try {
     const image = await Camera.getPhoto({
@@ -13,7 +13,7 @@ const handleImageInput = async () => {
     if (image?.dataUrl) {
       // Store it to state or navigate to crop page
       localStorage.setItem('capturedImage', image.dataUrl);
-      window.location.href = '/cropimage'; // Or use React Router navigation
+      navigate('/cropimage');
     }
   } catch (error) {
     console.error("Image capture failed:", error);

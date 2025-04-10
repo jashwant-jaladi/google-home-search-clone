@@ -99,11 +99,14 @@ const SearchBar = () => {
           />
           <BsMicFill size={18} color="white" onClick={handleVoiceSearch} style={{ cursor: "pointer" }} />
           <SiGooglelens
-  size={18}
-  color="white"
-  style={{ marginLeft: 10, cursor: "pointer" }}
-  onClick={handleImageInput}
-/>
+            size={18}
+            color="white"
+            style={{ marginLeft: 10, cursor: "pointer" }}
+            onClick={(e: React.MouseEvent) => {
+              e.preventDefault();
+              handleImageInput(navigate);
+            }}
+          />
 
         </SearchWrapper>
         {focused && (
