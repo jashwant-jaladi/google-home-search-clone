@@ -17,6 +17,7 @@ import { SiGooglelens } from "react-icons/si"
 import { IoMdTime } from "react-icons/io"
 import VoiceOverlay from "./Overlay"
 import useVoiceSearch from "../hooks/useVoiceSearch"
+import { handleImageInput } from "../utils/ImageSearch"
 
 const SearchBar = () => {
   const [query, setQuery] = useState("")
@@ -97,7 +98,7 @@ const SearchBar = () => {
             onFocus={() => setFocused(true)}
           />
           <BsMicFill size={18} color="white" onClick={handleVoiceSearch} style={{ cursor: "pointer" }} />
-          <SiGooglelens size={18} color="white" style={{ marginLeft: 10 }} />
+          <SiGooglelens size={18} color="white" style={{ marginLeft: 10 }} onClick={handleImageInput} />
         </SearchWrapper>
         {focused && (
           <>

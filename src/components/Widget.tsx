@@ -17,25 +17,17 @@ import useGeolocation from '../utils/GeoLocation';
 import { useState, useEffect } from 'react';
 
 const Widget = () => {
-  const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY
-  const { location, error } = useGeolocation();
+  const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
+  const { location } = useGeolocation();
+
   interface WeatherData {
     name: string;
-    main: {
-      temp: number;
-    };
-    weather: Array<{
-      icon: string;
-      description: string;
-    }>;
+    main: { temp: number };
+    weather: Array<{ icon: string; description: string }>;
   }
 
   interface AqiData {
-    list: Array<{
-      main: {
-        aqi: number;
-      };
-    }>;
+    list: Array<{ main: { aqi: number } }>;
   }
 
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
@@ -43,103 +35,87 @@ const Widget = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  {/* Weather Widget */ }
+  // Fetch weather
   useEffect(() => {
     if (location) {
       const fetchWeatherData = async () => {
         try {
+          setLoading(true);
           const response = await fetch(
             `https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lon}&appid=${WEATHER_API_KEY}&units=metric`
           );
-
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-
+          if (!response.ok) throw new Error("Weather fetch failed");
           const data = await response.json();
           setWeatherData(data);
-        } catch (error) {
+        } catch (err) {
           setErrorMessage("Failed to fetch weather data");
         } finally {
           setLoading(false);
         }
       };
-
       fetchWeatherData();
     }
   }, [location]);
 
-  {/* AQI widget */ }
+  // Fetch AQI
   useEffect(() => {
     const fetchAqiData = async () => {
       try {
         const response = await fetch(
           `https://api.openweathermap.org/data/2.5/air_pollution?lat=${location?.lat}&lon=${location?.lon}&appid=${WEATHER_API_KEY}`
         );
-
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-
+        if (!response.ok) throw new Error("AQI fetch failed");
         const data = await response.json();
         setAqiData(data);
-      } catch (error) {
+      } catch (err) {
         setErrorMessage("Failed to fetch AQI data");
       }
     };
-
-    if (location) {
-      fetchAqiData();
-    }
+    if (location) fetchAqiData();
   }, [location]);
-
-
 
   const generateDisplayAQI = (level: number) => {
     switch (level) {
-      case 1: return Math.floor(Math.random() * 51);            // 0–50
-      case 2: return Math.floor(Math.random() * 50) + 51;       // 51–100
-      case 3: return Math.floor(Math.random() * 100) + 101;     // 101–200
-      case 4: return Math.floor(Math.random() * 100) + 201;     // 201–300
-      case 5: return Math.floor(Math.random() * 200) + 301;     // 301–500
+      case 1: return Math.floor(Math.random() * 51);
+      case 2: return Math.floor(Math.random() * 50) + 51;
+      case 3: return Math.floor(Math.random() * 100) + 101;
+      case 4: return Math.floor(Math.random() * 100) + 201;
+      case 5: return Math.floor(Math.random() * 200) + 301;
       default: return 0;
     }
   };
 
   const getAqiColor = (value: number) => {
-    if (value <= 50) return '#00e400';        // Good - Green
-    if (value <= 100) return '#ffff00';       // Fair - Yellow
-    if (value <= 200) return '#ff7e00';        // Moderate - Orange
-    if (value <= 300) return '#ff0000';        // Poor - Red
-    return '#8f3f97';                         // Very Poor - Purple
+    if (value <= 50) return '#00e400';
+    if (value <= 100) return '#ffff00';
+    if (value <= 200) return '#ff7e00';
+    if (value <= 300) return '#ff0000';
+    return '#8f3f97';
   };
-
-  const realAQI = aqiData?.list[0]?.main.aqi;
-  const displayAQI = generateDisplayAQI(realAQI ?? 0);
-
 
   const getAqiLabel = (value: number) => {
     if (value <= 50) return "Good";
     if (value <= 100) return "Fair";
     if (value <= 200) return "Moderate";
     if (value <= 300) return "Poor";
-    return "Very Poor"; // >300
+    return "Very Poor";
   };
 
+  const realAQI = aqiData?.list[0]?.main.aqi ?? 0;
+  const displayAQI = generateDisplayAQI(realAQI);
   const aqiLabel = getAqiLabel(displayAQI);
 
-
-
-
-
+  // 🔄 Loading and ❌ Error Handling
+  if (loading) return <WidgetContainer>Loading...</WidgetContainer>;
+  if (errorMessage) return <WidgetContainer>{errorMessage}</WidgetContainer>;
 
   return (
     <WidgetContainer>
-      {/* Weather widget */}
+      {/* Weather Widget */}
       <WidgetItemColumn>
         <div>{weatherData?.name}</div>
         <WidgetItemRow>
-          <div>{weatherData?.main.temp}</div>
+          <div>{weatherData?.main.temp}°C</div>
           <WidgetIcon
             src={`https://openweathermap.org/img/wn/${weatherData?.weather[0].icon}@2x.png`}
             alt={weatherData?.weather[0].description}
@@ -147,7 +123,7 @@ const Widget = () => {
         </WidgetItemRow>
       </WidgetItemColumn>
 
-      {/* AQI widget */}
+      {/* AQI Widget */}
       <WidgetItemColumn>
         <div>Air quality · {displayAQI}</div>
         <WidgetItemRow>
@@ -155,11 +131,10 @@ const Widget = () => {
           <AqiIcon bg={getAqiColor(displayAQI)}>
             <WidgetIcon as={BsCloudHaze2} size={18} color="black" />
           </AqiIcon>
-
         </WidgetItemRow>
       </WidgetItemColumn>
 
-      {/* Stock Market widget */}
+      {/* Stock Market Widget */}
       <WidgetItemColumn>
         <div>NIFTY 50 <StyledSpan>-1.65%</StyledSpan></div>
         <WidgetItemRow>
@@ -169,16 +144,16 @@ const Widget = () => {
       </WidgetItemColumn>
 
       <SettingsBox>
-  <SettingsTopRow>
-    <FiSettings size={18} color="#72b7d7" />
-    <SettingsTitle>Settings</SettingsTitle>
-  </SettingsTopRow>
-  <SettingsText>Customize your space</SettingsText>
-</SettingsBox>
-
-
+        <SettingsTopRow>
+          <FiSettings size={18} color="#72b7d7" />
+          <SettingsTitle>Settings</SettingsTitle>
+        </SettingsTopRow>
+        <SettingsText>Customize your space</SettingsText>
+      </SettingsBox>
     </WidgetContainer>
   );
 };
 
 export default Widget;
+
+
