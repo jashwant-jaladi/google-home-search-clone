@@ -32,40 +32,67 @@ export const PreviewImage = styled.img`
 `;
 
 export const ResultsGrid = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
 `;
 
 export const Card = styled.div`
   background-color: #303134;
-  padding: 16px;
   border-radius: 12px;
-  width: 200px;
-  display: flex;
-  flex-direction: column;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+  }
 `;
 
 export const Thumb = styled.img`
   width: 100%;
-  height: 120px;
+  height: 140px;
   object-fit: cover;
-  border-radius: 8px;
+  display: block;
 `;
 
 export const Title = styled.p`
-  font-size: 14px;
-  margin: 10px 0;
+  font-size: 13px;
   color: #e8eaed;
+  padding: 8px 10px 4px 10px;
+  line-height: 1.4;
 `;
 
 export const SourceLink = styled.a`
-  font-size: 13px;
+  font-size: 12px;
   color: #8ab4f8;
-  text-decoration: underline;
-  transition: color 0.2s;
+  padding: 0 10px 10px 10px;
+  display: inline-block;
+  text-decoration: none;
 
   &:hover {
+    text-decoration: underline;
     color: #a3d2ff;
+  }
+`;
+export const HomeButton = styled.button`
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background-color: #303134;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #3c4043;
+  }
+
+  svg {
+    color: #e8eaed;
   }
 `;

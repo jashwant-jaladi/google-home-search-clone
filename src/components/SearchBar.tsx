@@ -17,7 +17,8 @@ import { SiGooglelens } from "react-icons/si"
 import { IoMdTime } from "react-icons/io"
 import VoiceOverlay from "./Overlay"
 import useVoiceSearch from "../hooks/useVoiceSearch"
-import  handleImageInput  from "../utils/ImageSearch"
+
+import  {handleImageInput}  from "../utils/ImageSearch"
 
 const SearchBar = () => {
   const [query, setQuery] = useState("")
@@ -111,7 +112,7 @@ const SearchBar = () => {
         </SearchWrapper>
         {focused && (
           <>
-            <PreviousSearchSettings>
+            <PreviousSearchSettings>6
               <div>Recent Searches</div>
               <div>MANAGE HISTORY</div>
             </PreviousSearchSettings>

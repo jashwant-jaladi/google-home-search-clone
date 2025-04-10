@@ -12,6 +12,9 @@ import {
   Title,
   SourceLink,
 } from "../styles/ImageResults.styles";
+import { AiOutlineHome } from "react-icons/ai";
+import { HomeButton } from "../styles/ImageResults.styles";
+
 
 interface ResultItem {
   id: number;
@@ -41,6 +44,10 @@ const ImageResults = () => {
 
   return (
     <Wrapper>
+<HomeButton onClick={() => navigate("/")}>
+  <AiOutlineHome size={20} />
+</HomeButton>
+
       <Heading>Search Results</Heading>
 
       {image && (

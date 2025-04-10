@@ -1,9 +1,14 @@
-// pages/CropImage.tsx
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Cropper from "react-easy-crop";
-import getCroppedImg from "../utils/cropImage"; // we'll create this
+import getCroppedImg from "../utils/cropImage";
 import { Area } from "react-easy-crop";
+import {
+  CropContainer,
+  Controls,
+  ZoomSlider,
+  ProceedButton
+} from "../styles/CropImage.styles";
 
 const CropImage = () => {
   const [imageData, setImageData] = useState<string | null>(null);
@@ -31,7 +36,7 @@ const CropImage = () => {
   };
 
   return (
-    <div style={{ position: "relative", width: "100%", height: "100vh" }}>
+    <CropContainer>
       {imageData && (
         <>
           <Cropper
@@ -43,8 +48,8 @@ const CropImage = () => {
             onZoomChange={setZoom}
             onCropComplete={onCropComplete}
           />
-          <div style={{ position: "absolute", bottom: 20, left: "50%", transform: "translateX(-50%)" }}>
-            <input
+          <Controls>
+            <ZoomSlider
               type="range"
               min={1}
               max={3}
@@ -52,13 +57,11 @@ const CropImage = () => {
               value={zoom}
               onChange={(e) => setZoom(Number(e.target.value))}
             />
-            <button onClick={handleProceed} style={{ marginLeft: 12, padding: "8px 16px" }}>
-              Crop & Continue
-            </button>
-          </div>
+            <ProceedButton onClick={handleProceed}>Crop & Continue</ProceedButton>
+          </Controls>
         </>
       )}
-    </div>
+    </CropContainer>
   );
 };
 
