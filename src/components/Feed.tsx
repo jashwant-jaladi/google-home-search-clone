@@ -1,28 +1,23 @@
 import { useEffect, useState } from "react"
 import { FeedContainer,NewsCard, NewsImage, NewsContent, NewsTitle, NewsMeta } from "../styles/Feed.styles"
+import { fetchNews } from "../utils/fetchNews"
+import { getTopHeadlinesUrl } from "../api/news"
 
 const Feed = () => {
-  const API_KEY = import.meta.env.VITE_GNEWS_API_KEY
+  
   const [feed, setFeed] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  const getFeed = async () => {
-    try {
-       const response = await fetch(`https://gnews.io/api/v4/top-headlines?lang=en&country=in&max=10&apikey=${API_KEY}`)
-       if (!response.ok) {
-          throw new Error("Network response was not ok")
-        }
-        const data = await response.json()
-        setFeed(data.articles)
-        setLoading(false)
-    } catch (error) {
-      setError("Failed to fetch data")
-      setLoading(false)
-    }
-  }
   useEffect(() => {
-    getFeed()
+    const getFeed = async () => {
+      const { articles, error } = await fetchNews(getTopHeadlinesUrl());
+      setFeed(articles);
+      setError(error);
+      setLoading(false);
+    }
+
+    getFeed();
   }, [])
   if (loading) {
     return <div>Loading...</div>
