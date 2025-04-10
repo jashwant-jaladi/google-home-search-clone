@@ -1,6 +1,7 @@
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
-export const handleImageInput = async () => {
+const handleImageInput = async () => {
+  console.log("Image input clicked");
   try {
     const image = await Camera.getPhoto({
       quality: 90,
@@ -18,3 +19,5 @@ export const handleImageInput = async () => {
     console.error("Image capture failed:", error);
   }
 };
+
+export default handleImageInput;
