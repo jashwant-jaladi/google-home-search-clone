@@ -42,6 +42,9 @@ export const SearchWrapper = styled.div<{ focused?: boolean }>`
     gap: 12px;
     transition: all 0.3s ease;
     transform: ${({ focused }) => focused ? 'translateY(0)' : 'none'};
+    position:sticky;
+    top: 0;
+    z-index: 99;
 
     svg {
         width: 20px;

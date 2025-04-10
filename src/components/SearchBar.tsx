@@ -15,12 +15,15 @@ import { FiSearch } from "react-icons/fi"
 import { BsMicFill } from "react-icons/bs"
 import { SiGooglelens } from "react-icons/si"
 import { IoMdTime } from "react-icons/io"
+import VoiceOverlay from "./Overlay"
+import useVoiceSearch from "../hooks/useVoiceSearch"
 
 const SearchBar = () => {
   const [query, setQuery] = useState("")
   const [focused, setFocused] = useState(false)
   const [previousSearches, setPreviousSearches] = useState<string[]>([])
   const navigate = useNavigate()
+  const {startListening,listening,isSupported}= useVoiceSearch()
 
   useEffect(() => {
     // Load previous searches from localStorage
@@ -32,7 +35,7 @@ const SearchBar = () => {
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && query.trim()) {
-      // Save the search to localStorage
+      
       const newSearch = query.trim()
       const updatedSearches = [newSearch, ...previousSearches].slice(0, 10) // Keep only last 10 searches
       setPreviousSearches(updatedSearches)
@@ -44,7 +47,6 @@ const SearchBar = () => {
 
   const handleSearchClick = () => {
     if (query.trim()) {
-      // Save the search to localStorage
       const newSearch = query.trim()
       const updatedSearches = [newSearch, ...previousSearches].slice(0, 10) // Keep only last 10 searches
       setPreviousSearches(updatedSearches)
@@ -54,8 +56,25 @@ const SearchBar = () => {
     }
   }
 
+ 
+
+  const handleVoiceSearch = () => {
+    if (!isSupported) {
+      alert("Voice search isn't supported in your browser. Try using Chrome on desktop or Android.")
+      return
+    }
+  
+    startListening((text: string) => {
+      setQuery(text)
+      navigate(`/searchresults?q=${encodeURIComponent(text)}`)
+    })
+  }
+  
+
   return (
     <>
+    {listening && <VoiceOverlay />}
+    {focused && <VoiceOverlay />}
       {focused && <Overlay onClick={() => setFocused(false)} />}
       <SearchContainer focused={focused}>
         {!focused && (
@@ -77,7 +96,7 @@ const SearchBar = () => {
             onKeyDown={handleKeyDown}
             onFocus={() => setFocused(true)}
           />
-          <BsMicFill size={18} color="white" />
+          <BsMicFill size={18} color="white" onClick={handleVoiceSearch} style={{ cursor: "pointer" }} />
           <SiGooglelens size={18} color="white" style={{ marginLeft: 10 }} />
         </SearchWrapper>
         {focused && (
