@@ -2,11 +2,17 @@ import {
   WidgetContainer,
   WidgetItemColumn,
   WidgetItemRow,
-  WeatherIcon,
+  WidgetIcon,
+  AqiIcon,
+  StyledSpan,
+  SettingsBox,
+  SettingsTitle,
+  SettingsTopRow,
+  SettingsText
 } from '../styles/Widget.styles';
 import { FiSettings } from 'react-icons/fi';
 import { BsCloudHaze2 } from 'react-icons/bs';
-import { MdCurrencyExchange } from 'react-icons/md';
+import { FaArrowCircleDown } from "react-icons/fa";
 import useGeolocation from '../utils/GeoLocation';
 import { useState, useEffect } from 'react';
 
@@ -37,6 +43,7 @@ const Widget = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
+  {/* Weather Widget */ }
   useEffect(() => {
     if (location) {
       const fetchWeatherData = async () => {
@@ -62,6 +69,7 @@ const Widget = () => {
     }
   }, [location]);
 
+  {/* AQI widget */ }
   useEffect(() => {
     const fetchAqiData = async () => {
       try {
@@ -85,23 +93,46 @@ const Widget = () => {
     }
   }, [location]);
 
-  const realAQI = aqiData?.list[0]?.main.aqi;
-  const displayAQI = realAQI ? realAQI * 100 : Math.floor(Math.random() * 101);
 
-  const getAqiLabel = (level: number) => {
+
+  const generateDisplayAQI = (level: number) => {
     switch (level) {
-      case 1: return 'Good';
-      case 2: return 'Fair';
-      case 3: return 'Moderate';
-      case 4: return 'Poor';
-      case 5: return 'Very Poor';
-      default: return 'Unknown';
+      case 1: return Math.floor(Math.random() * 51);            // 0–50
+      case 2: return Math.floor(Math.random() * 50) + 51;       // 51–100
+      case 3: return Math.floor(Math.random() * 100) + 101;     // 101–200
+      case 4: return Math.floor(Math.random() * 100) + 201;     // 201–300
+      case 5: return Math.floor(Math.random() * 200) + 301;     // 301–500
+      default: return 0;
     }
   };
 
-  const aqiLabel = getAqiLabel(realAQI ?? 0);
+  const getAqiColor = (value: number) => {
+    if (value <= 50) return '#00e400';        // Good - Green
+    if (value <= 100) return '#ffff00';       // Fair - Yellow
+    if (value <= 200) return '#ff7e00';        // Moderate - Orange
+    if (value <= 300) return '#ff0000';        // Poor - Red
+    return '#8f3f97';                         // Very Poor - Purple
+  };
 
-console.log(aqiData)
+  const realAQI = aqiData?.list[0]?.main.aqi;
+  const displayAQI = generateDisplayAQI(realAQI ?? 0);
+
+
+  const getAqiLabel = (value: number) => {
+    if (value <= 50) return "Good";
+    if (value <= 100) return "Fair";
+    if (value <= 200) return "Moderate";
+    if (value <= 300) return "Poor";
+    return "Very Poor"; // >300
+  };
+
+  const aqiLabel = getAqiLabel(displayAQI);
+
+
+
+
+
+
   return (
     <WidgetContainer>
       {/* Weather widget */}
@@ -109,7 +140,7 @@ console.log(aqiData)
         <div>{weatherData?.name}</div>
         <WidgetItemRow>
           <div>{weatherData?.main.temp}</div>
-          <WeatherIcon
+          <WidgetIcon
             src={`https://openweathermap.org/img/wn/${weatherData?.weather[0].icon}@2x.png`}
             alt={weatherData?.weather[0].description}
           />
@@ -121,27 +152,31 @@ console.log(aqiData)
         <div>Air quality · {displayAQI}</div>
         <WidgetItemRow>
           <div>{aqiLabel}</div>
-          <WeatherIcon as={BsCloudHaze2} />
+          <AqiIcon bg={getAqiColor(displayAQI)}>
+            <WidgetIcon as={BsCloudHaze2} size={18} color="black" />
+          </AqiIcon>
+
         </WidgetItemRow>
       </WidgetItemColumn>
 
       {/* Stock Market widget */}
       <WidgetItemColumn>
-        <div>NIFTY 50</div>
+        <div>NIFTY 50 <StyledSpan>-1.65%</StyledSpan></div>
         <WidgetItemRow>
           <div>22,670</div>
-          <WeatherIcon as={MdCurrencyExchange} />
+          <WidgetIcon as={FaArrowCircleDown} color='#f24c4c' />
         </WidgetItemRow>
       </WidgetItemColumn>
 
-      {/* Settings widget */}
-      <WidgetItemColumn>
-        <div>Customize</div>
-        <WidgetItemRow>
-          <div>Settings</div>
-          <WeatherIcon as={FiSettings} />
-        </WidgetItemRow>
-      </WidgetItemColumn>
+      <SettingsBox>
+  <SettingsTopRow>
+    <FiSettings size={18} color="#72b7d7" />
+    <SettingsTitle>Settings</SettingsTitle>
+  </SettingsTopRow>
+  <SettingsText>Customize your space</SettingsText>
+</SettingsBox>
+
+
     </WidgetContainer>
   );
 };

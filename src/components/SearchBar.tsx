@@ -1,4 +1,4 @@
-import { GoogleLogo, SearchWrapper, SearchInput} from "../styles/SearchBar.styles"
+import { GoogleLogo, SearchWrapper, SearchInput, SearchContainer } from "../styles/SearchBar.styles"
 import { FiSearch } from "react-icons/fi"
 import { BsMicFill } from "react-icons/bs"
 import { SiGooglelens } from "react-icons/si";
@@ -11,12 +11,14 @@ const SearchBar = () => {
         alt="Google logo"
       />
 
-      <SearchWrapper>
-        <FiSearch size={18} color="#9aa0a6"  />
-        <SearchInput placeholder="Search" />
-        <BsMicFill size={18} color="white"  />
-        <SiGooglelens size={18} color="white" style={{ marginLeft: 10 }} />
-      </SearchWrapper>
+      <SearchContainer>
+        <SearchWrapper>
+          <FiSearch size={18} color="#9aa0a6"  />
+          <SearchInput placeholder="Search" />
+          <BsMicFill size={18} color="white"  />
+          <SiGooglelens size={18} color="white" style={{ marginLeft: 10 }} />
+        </SearchWrapper>
+      </SearchContainer>
     </>
   )
 }

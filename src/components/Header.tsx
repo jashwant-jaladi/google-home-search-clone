@@ -11,7 +11,7 @@ const Header = () => {
   return (
     <HeaderContainer>
       <IconButton>
-      <PiFlaskFill />
+      <PiFlaskFill size={35} />
       </IconButton>
       <SearchContainer>
       <SearchPill>
