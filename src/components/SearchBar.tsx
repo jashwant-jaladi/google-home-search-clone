@@ -123,14 +123,14 @@ const SearchBar = () => {
               setShowImageModal(true);
             }}
           />
+
           {showImageModal && (
             <ImageSourceModal
-              onSelect={(source) => {
-                setShowImageModal(false);
-                handleImageInput(source, navigate);
-              }}
+              onSelect={(source) => handleImageInput(source, navigate)}
               onClose={() => setShowImageModal(false)}
             />
+
+
           )}
 
 

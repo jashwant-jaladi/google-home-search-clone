@@ -12,9 +12,7 @@ export const handleImageInput = async (
       const input = document.createElement('input');
       input.type = 'file';
       input.accept = 'image/*';
-      if (source === 'camera') {
-        input.capture = 'environment'; // Force camera if possible
-      }
+      if (source === 'camera') input.capture = 'environment';
 
       input.onchange = (event: any) => {
         const file = event.target.files[0];
@@ -22,10 +20,7 @@ export const handleImageInput = async (
         reader.onload = () => {
           const dataUrl = reader.result as string;
           localStorage.setItem('capturedImage', dataUrl);
-          setTimeout(() => {
-            navigate('/cropimage');
-          }, 100);
-          
+          setTimeout(() => navigate('/cropimage'), 100);
         };
         reader.readAsDataURL(file);
       };
@@ -34,24 +29,19 @@ export const handleImageInput = async (
       return;
     }
 
-    // Native flow
-    const cameraSource = source === 'camera' ? CameraSource.Camera : CameraSource.Photos;
-
     const image = await Camera.getPhoto({
       quality: 90,
       allowEditing: false,
       resultType: CameraResultType.DataUrl,
-      source: cameraSource,
+      source: source === 'camera' ? CameraSource.Camera : CameraSource.Photos,
     });
 
     if (image?.dataUrl) {
       localStorage.setItem('capturedImage', image.dataUrl);
-      setTimeout(() => {
-        navigate('/cropimage');
-      }, 100);
-      
+      setTimeout(() => navigate('/cropimage'), 100);
     }
   } catch (error) {
     console.error("Image capture failed:", error);
+    alert("Could not access camera or gallery. Please check permissions.");
   }
 };
