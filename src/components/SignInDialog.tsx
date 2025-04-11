@@ -2,9 +2,7 @@
 import styled from 'styled-components';
 import { FcGoogle } from "react-icons/fc";
 import { auth } from '../firebase';
-import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-
-
+import { signInWithPopup, signInWithRedirect, GoogleAuthProvider } from 'firebase/auth';
 
 const Overlay = styled.div`
   position: fixed;
@@ -103,7 +101,6 @@ const CloseButton = styled.button`
   }
 `;
 
-
 interface SignInDialogProps {
   onClose: () => void;
 }
@@ -112,8 +109,14 @@ const SignInDialog: React.FC<SignInDialogProps> = ({ onClose }) => {
   const handleGoogleSignIn = async () => {
     try {
       const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
-      onClose();
+      const isMobile = window.innerWidth < 768;
+
+      if (isMobile) {
+        await signInWithRedirect(auth, provider);
+      } else {
+        await signInWithPopup(auth, provider);
+        onClose();
+      }
     } catch (error) {
       console.error('Error signing in with Google:', error);
     }

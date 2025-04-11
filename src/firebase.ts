@@ -9,7 +9,7 @@ import { getAuth } from "firebase/auth";
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyANGFlmGtRzqDG7tmaYxpIUYxvEBN-h88E",
-  authDomain: "https://google-home-search-clone.vercel.app/",
+  authDomain: "clone-731db.firebaseapp.com",
   projectId: "clone-731db",
   storageBucket: "clone-731db.firebasestorage.app",
   messagingSenderId: "573696113882",
