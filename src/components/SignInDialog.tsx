@@ -1,4 +1,3 @@
-
 import { Dialog, Overlay, CloseButton, SignInButton } from '../styles/SignInDialog.styles';
 import { FcGoogle } from "react-icons/fc";
 import { auth } from '../firebase';

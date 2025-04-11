@@ -1,4 +1,3 @@
-// src/components/Header/Header.jsx (With Context)
 import { HeaderContainer, IconButton, SearchPill, GeminiIconWrapper, SearchContainer } from '../styles/Header.styles';
 import { PiFlaskFill } from "react-icons/pi";
 import { FcGoogle } from "react-icons/fc";

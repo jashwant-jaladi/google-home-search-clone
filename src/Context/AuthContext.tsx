@@ -1,4 +1,3 @@
-// src/contexts/AuthContext.jsx
 import { createContext, useState, useEffect, useContext } from 'react';
 import { auth } from '../firebase';
 import { 
@@ -10,7 +9,7 @@ import {
 } from 'firebase/auth';
 import { ReactNode } from 'react';
 
-// Create context
+
 export const AuthContext = createContext<{
     currentUser: User | null;
     signInWithGoogle: () => Promise<UserCredential>;
@@ -25,23 +24,22 @@ export const AuthContext = createContext<{
     }
 });
   
-// Provider component
+
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Google sign in
+
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     return signInWithPopup(auth, provider);
   };
 
-  // Sign out
   const signOut = () => {
     return firebaseSignOut(auth);
   };
 
-  // Listen for auth state changes
+ 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       setCurrentUser(user);
@@ -64,7 +62,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   );
 };
 
-// Custom hook to use the auth context
+
 export const useAuth = () => {
   return useContext(AuthContext);
 };

@@ -1,4 +1,4 @@
-// utils/cropImage.ts
+
 export default async function getCroppedImg(imageSrc: string, crop: any): Promise<string> {
     const image = await createImage(imageSrc);
     const canvas = document.createElement("canvas");

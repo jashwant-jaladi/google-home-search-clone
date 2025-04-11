@@ -1,4 +1,3 @@
-
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
 import { UserMenuContainer, ProfilePic } from '../styles/UserMenu.styles';

@@ -77,7 +77,7 @@ const useVoiceSearch = () => {
     }
 
     recognition.onend = () => {
-      setTimeout(() => setListening(false), 300) // smoother UX
+      setTimeout(() => setListening(false), 3000) 
     }
 
     recognition.start()
