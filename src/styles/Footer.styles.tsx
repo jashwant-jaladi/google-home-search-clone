@@ -11,8 +11,9 @@ export const FooterContainer = styled.footer`
   background-color: #303134;
   z-index: 100;
 
+
   @media (min-width: 768px) {
-    padding: 20px 0;
+    padding: 10px 0;
   }
 `;
 
@@ -22,30 +23,33 @@ type IconButtonProps = {
   };
   
   export const FooterIconButton = styled.button<IconButtonProps>`
-    background: ${({ isActive }) => (isActive ? "#0883AF" : "transparent")};
-    border: none;
-    cursor: pointer;
-    border-radius: 24px;
-    width: 50px;
-    height: 50px;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  
-    &:hover {
-      background-color: #E8F0FE;
-    }
-  
-    &:focus {
-      outline: none;
-    }
-  
-    transition: background-color 0.2s ease;
-  
-    @media (min-width: 768px) {
-      width: 70px;
-      height: 70px;
-    }
-  `;
-  
+  background: ${({ isActive }) => (isActive ? "#0883AF" : "transparent")};
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: ${({ isActive }) => (isActive ? "#0883AF" : "#e8f0fe")};
+  }
+
+  &:focus-visible {
+    outline: 2px solid #5eb5d5;
+    outline-offset: 3px;
+  }
+
+  &:active {
+    background-color: ${({ isActive }) => (isActive ? "#0883AF" : "#dbeafe")};
+  }
+
+  @media (min-width: 768px) {
+    width: 70px;
+    height: 70px;
+  }
+`;

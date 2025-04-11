@@ -68,7 +68,7 @@ const useVoiceSearch = () => {
      
       silenceTimeout = setTimeout(() => {
         recognition.stop()
-      }, 2000)
+      }, 5000)
     }
 
     recognition.onresult = (event: SpeechRecognitionEvent) => {

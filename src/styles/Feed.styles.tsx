@@ -5,6 +5,7 @@ export const FeedContainer = styled.div`
   flex-direction: column;
   gap: 16px;
   margin-top: 20px;
+  margin-bottom: 20px;
   background-color: transparent;
   padding: 0 16px; /* Add some padding for smaller screens */
 
