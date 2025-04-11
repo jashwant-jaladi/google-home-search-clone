@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">google-home-search-clone</string>
-    <string name="title_activity_main">google-home-search-clone</string>
-    <string name="package_name">com.googleclone.app</string>
-    <string name="custom_url_scheme">com.googleclone.app</string>
-</resources>

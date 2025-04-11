@@ -106,8 +106,8 @@ const Widget = () => {
   const aqiLabel = getAqiLabel(displayAQI);
 
   // 🔄 Loading and ❌ Error Handling
-  if (loading) return <WidgetContainer>Loading...</WidgetContainer>;
-  if (errorMessage) return <WidgetContainer>{errorMessage}</WidgetContainer>;
+  if (loading) return <WidgetContainer><div style={{ fontSize: "1rem", color: "#bbb" , display: "flex", justifyContent: "center" }}>Loading...</div></WidgetContainer>;
+  if (errorMessage) return <WidgetContainer><div style={{ fontSize: "1rem", color: "#bbb", display: "flex", justifyContent: "center" }}>{errorMessage}</div></WidgetContainer>;
 
   return (
     <WidgetContainer>
