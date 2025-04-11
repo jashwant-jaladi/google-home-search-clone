@@ -14,8 +14,12 @@ export const WidgetContainer = styled.div`
     display: none;
   }
 
-  width: 100%;
+  
   box-sizing: border-box;
+
+  @media (max-width: 768px) {
+  width: 100%;
+}
 `;
 
 

@@ -11,6 +11,14 @@ export const GoogleLogo = styled.img`
     position: sticky;
     transition: opacity 0.3s ease;
     margin-bottom: 20px;
+    
+    @media (min-width: 768px) {
+        width: 20%;
+    }
+
+    @media (min-width: 1024px) {
+        width: 15%;
+    }
 `
 
 export const SearchContainer = styled.div<{ focused?: boolean }>`
@@ -25,10 +33,22 @@ export const SearchContainer = styled.div<{ focused?: boolean }>`
     display: flex;
     flex-direction: column;
     align-items: center;
-
     background-color: ${({ focused }) => focused ? '#202124' : 'transparent'};
     transition: all 0.3s ease;
-`
+
+    @media (max-width: 600px) {
+        padding: 10px;
+    }
+    
+    
+    @media (max-width: 375px) { // Mobile M
+        padding: 8px;
+    }
+    
+    @media (max-width: 320px) { // Mobile S
+        padding: 6px;
+    }
+`   
 
 export const SearchWrapper = styled.div<{ focused?: boolean }>`
     display: flex;
@@ -42,7 +62,7 @@ export const SearchWrapper = styled.div<{ focused?: boolean }>`
     gap: 12px;
     transition: all 0.3s ease;
     transform: ${({ focused }) => focused ? 'translateY(0)' : 'none'};
-    position:sticky;
+    position: sticky;
     top: 0;
     z-index: 99;
 
@@ -50,6 +70,33 @@ export const SearchWrapper = styled.div<{ focused?: boolean }>`
         width: 20px;
         height: 20px;
         flex-shrink: 0;
+        
+        @media (max-width: 375px) { // Mobile M
+            width: 18px;
+            height: 18px;
+        }
+        
+        @media (max-width: 320px) { // Mobile S
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    @media (max-width: 600px) {
+        gap: 8px;
+        padding: 10px 12px;
+    }
+    
+   
+    
+    @media (max-width: 375px) { // Mobile M
+        gap: 6px;
+        padding: 8px 10px;
+    }
+    
+    @media (max-width: 320px) { // Mobile S
+        gap: 4px;
+        padding: 6px 8px;
     }
 `
 
@@ -65,6 +112,18 @@ export const SearchInput = styled.input`
     ::placeholder {
       color: #9aa0a6;
       font-weight: 400;
+    }
+
+    @media (max-width: 600px) {
+        font-size: 16px;
+    }
+    
+    @media (max-width: 375px) { // Mobile M
+        font-size: 15px;
+    }
+    
+    @media (max-width: 320px) { // Mobile S
+        font-size: 14px;
     }
 `
 
@@ -92,11 +151,9 @@ export const Overlay = styled.div`
 export const PreviousSearches = styled.div`
     width: 100%;
     max-width: 600px;
-    
     border-radius: 12px;
     margin-top: 8px;
     padding: 8px 0;
-    
     opacity: 0;
     transform: translateY(-10px);
     animation: slideIn 0.3s ease forwards;
@@ -110,6 +167,18 @@ export const PreviousSearches = styled.div`
             opacity: 1;
             transform: translateY(0);
         }
+    }
+
+    @media (max-width: 600px) {
+        padding: 8px;
+    }
+    
+    @media (max-width: 375px) { // Mobile M
+        padding: 6px;
+    }
+    
+    @media (max-width: 320px) { // Mobile S
+        padding: 4px;
     }
 `
 
@@ -131,13 +200,46 @@ export const SearchItem = styled.div`
     span {
         flex: 1;
     }
+
+    @media (max-width: 600px) {
+        padding: 8px 12px;
+        gap: 10px;
+        font-size: 15px;
+    }
+    
+    @media (max-width: 375px) { // Mobile M
+        padding: 6px 10px;
+        gap: 8px;
+        font-size: 14px;
+    }
+    
+    @media (max-width: 320px) { // Mobile S
+        padding: 5px 8px;
+        gap: 6px;
+        font-size: 13px;
+    }
 `
+
 export const PreviousSearchSettings = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 14px;
   width: 100%;
   margin-top: 10px;
+
+  @media (max-width: 600px) {
+    font-size: 12px;
+  }
+  
+  @media (max-width: 375px) { // Mobile M
+    font-size: 11px;
+    margin-top: 8px;
+  }
+  
+  @media (max-width: 320px) { // Mobile S
+    font-size: 10px;
+    margin-top: 6px;
+  }
 `
 
 export const NoPreviousSearches = styled.div`
@@ -156,5 +258,43 @@ export const NoPreviousSearches = styled.div`
 
   span:last-child {
     font-size: 14px;
+  }
+
+  @media (max-width: 600px) {
+    padding: 16px;
+    
+    span:first-child {
+      font-size: 15px;
+    }
+
+    span:last-child {
+      font-size: 13px;
+    }
+  }
+  
+  @media (max-width: 375px) { // Mobile M
+    padding: 12px;
+    gap: 6px;
+    
+    span:first-child {
+      font-size: 14px;
+    }
+
+    span:last-child {
+      font-size: 12px;
+    }
+  }
+  
+  @media (max-width: 320px) { // Mobile S
+    padding: 10px;
+    gap: 4px;
+    
+    span:first-child {
+      font-size: 13px;
+    }
+
+    span:last-child {
+      font-size: 11px;
+    }
   }
 `

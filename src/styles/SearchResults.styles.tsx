@@ -5,14 +5,7 @@ export const Container = styled.div`
   margin: 0 auto;
   padding: 1rem;
 
-  /* Light mode by default */
-  background-color: #f9f9f9;
-  color: #111;
-
-  @media (prefers-color-scheme: dark) {
-    background-color: inherit;
-    color: #f1f1f1;
-  }
+ 
 `
 
 export const SearchForm = styled.form`
@@ -31,6 +24,7 @@ export const SearchInput = styled.input`
   border-radius: 8px;
   border: 1px solid #ccc;
   background-color: inherit;
+  color: white;
   
 `
 

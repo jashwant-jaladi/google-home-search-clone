@@ -31,7 +31,8 @@ export const handleImageInput = async (navigate: ReturnType<typeof useNavigate>)
 
     if (image?.dataUrl) {
       localStorage.setItem('capturedImage', image.dataUrl);
-      window.location.href = '/cropimage';
+      navigate('/cropimage');
+
     }
   } catch (error) {
     console.error("Image capture failed:", error);

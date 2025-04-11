@@ -3,13 +3,17 @@ import styled from "styled-components";
 export const FooterContainer = styled.footer`
   display: flex;
   justify-content: space-around;
-  align-items: flex-start;
-  padding: 20px 0;
+  align-items: center;
+  padding: 10px 0;
   position: fixed;
   bottom: 0;
   width: 100%;
   background-color: #303134;
   z-index: 100;
+
+  @media (min-width: 768px) {
+    padding: 20px 0;
+  }
 `;
 
 
@@ -22,8 +26,8 @@ type IconButtonProps = {
     border: none;
     cursor: pointer;
     border-radius: 24px;
-    width: 70px;
-    height: 35px;
+    width: 50px;
+    height: 50px;
     padding: 10px;
     display: flex;
     align-items: center;
@@ -38,5 +42,10 @@ type IconButtonProps = {
     }
   
     transition: background-color 0.2s ease;
+  
+    @media (min-width: 768px) {
+      width: 70px;
+      height: 70px;
+    }
   `;
   
