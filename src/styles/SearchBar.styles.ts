@@ -71,14 +71,19 @@ export const SearchWrapper = styled.div<{ focused?: boolean }>`
         height: 20px;
         flex-shrink: 0;
         
-        @media (max-width: 375px) { // Mobile M
+        @media (max-width: 480px) { // Added intermediate breakpoint for devices like iPhone 12 Pro
             width: 18px;
             height: 18px;
         }
         
-        @media (max-width: 320px) { // Mobile S
+        @media (max-width: 375px) {
             width: 16px;
             height: 16px;
+        }
+        
+        @media (max-width: 320px) {
+            width: 14px;
+            height: 14px;
         }
     }
 
@@ -87,14 +92,21 @@ export const SearchWrapper = styled.div<{ focused?: boolean }>`
         padding: 10px 12px;
     }
     
-   
+    @media (max-width: 480px) { // Added intermediate breakpoint for devices like iPhone 12 Pro
+        gap: 5px;
+        padding: 12px 12px;
+    }
     
-    @media (max-width: 375px) { // Mobile M
+    @media (max-width: 375px) {
         gap: 6px;
         padding: 8px 10px;
     }
     
-    @media (max-width: 320px) { // Mobile S
+    @media (max-width: 360px) { // Mobile S
+        gap: 4px;
+        padding: 8px 8px;
+    }
+    @media (max-width: 320px) {
         gap: 4px;
         padding: 6px 8px;
     }
@@ -297,4 +309,6 @@ export const NoPreviousSearches = styled.div`
       font-size: 11px;
     }
   }
+
 `
+

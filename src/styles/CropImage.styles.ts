@@ -9,7 +9,7 @@ export const CropContainer = styled.div`
 
 export const Controls = styled.div`
   position: absolute;
-  bottom: 24px;
+  bottom: 100px;
   left: 50%;
   transform: translateX(-50%);
   background-color: #303134;
@@ -19,6 +19,10 @@ export const Controls = styled.div`
   align-items: center;
   gap: 16px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+
+  @media (min-width: 420px) {
+    top: 100px;
+    bottom: auto;
 `;
 
 export const ZoomSlider = styled.input`

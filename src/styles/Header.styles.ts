@@ -69,6 +69,39 @@ export const SearchContainer = styled.div`
   background-color: #303134;
   border-radius: 12px;
 
+  @media (max-width: 2500px) {
+    width: 12%;
+    
+  }
+  @media (max-width: 1300px) {
+    width: 22%;
+  }
+  @media (max-width: 768px) {
+    width: 25%;
+    
+  }
+  
+  @media (max-width: 1024px) {
+    width: 25%;
+    
+  }
+  @media (max-width: 480px) {
+    width: 45%;
+    
+  }
+  
+  @media (max-width: 375px) {
+    width: 47%;
+} 
+  @media (max-width: 360px) { 
+    width: 50%;
+    
+  }
+  @media (max-width: 320px) {
+    width: 45%;
+    
+  }
+
 `;
 
 

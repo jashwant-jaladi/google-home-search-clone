@@ -47,6 +47,7 @@ const CropImage = () => {
             onCropChange={setCrop}
             onZoomChange={setZoom}
             onCropComplete={onCropComplete}
+            style={{ containerStyle: { height: "100vh" } }}
           />
           <Controls>
             <ZoomSlider
