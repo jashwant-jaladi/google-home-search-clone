@@ -22,7 +22,10 @@ export const handleImageInput = async (
         reader.onload = () => {
           const dataUrl = reader.result as string;
           localStorage.setItem('capturedImage', dataUrl);
-          navigate('/cropimage');
+          setTimeout(() => {
+            navigate('/cropimage');
+          }, 100);
+          
         };
         reader.readAsDataURL(file);
       };
@@ -43,7 +46,10 @@ export const handleImageInput = async (
 
     if (image?.dataUrl) {
       localStorage.setItem('capturedImage', image.dataUrl);
-      navigate('/cropimage');
+      setTimeout(() => {
+        navigate('/cropimage');
+      }, 100);
+      
     }
   } catch (error) {
     console.error("Image capture failed:", error);
