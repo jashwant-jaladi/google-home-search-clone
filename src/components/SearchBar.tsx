@@ -18,6 +18,8 @@ import { IoMdTime } from "react-icons/io"
 import VoiceOverlay from "./Overlay"
 import useVoiceSearch from "../hooks/useVoiceSearch"
 import { handleImageInput } from "../utils/ImageSearch"
+import ImageSourceModal from "./ImageSourceModal";
+
 
 const SearchBar = () => {
   const [query, setQuery] = useState("")
@@ -25,6 +27,8 @@ const SearchBar = () => {
   const [previousSearches, setPreviousSearches] = useState<string[]>([])
   const navigate = useNavigate()
   const { startListening, listening, isSupported } = useVoiceSearch()
+  const [showImageModal, setShowImageModal] = useState(false);
+
 
   useEffect(() => {
     const savedSearches = localStorage.getItem("previousSearches")
@@ -115,10 +119,21 @@ const SearchBar = () => {
             color="white"
             style={{ marginLeft: 10, cursor: "pointer" }}
             onClick={(e: React.MouseEvent) => {
-              e.preventDefault()
-              handleImageInput(navigate)
+              e.preventDefault();
+              setShowImageModal(true);
             }}
           />
+          {showImageModal && (
+            <ImageSourceModal
+              onSelect={(source) => {
+                setShowImageModal(false);
+                handleImageInput(source, navigate);
+              }}
+              onClose={() => setShowImageModal(false)}
+            />
+          )}
+
+
         </SearchWrapper>
 
         {focused && (
