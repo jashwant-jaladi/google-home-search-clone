@@ -1,4 +1,3 @@
-// hooks/useVoiceSearch.ts
 import { useState, useCallback } from "react"
 
 interface SpeechRecognitionEvent extends Event {
@@ -24,6 +23,7 @@ interface SpeechRecognition extends EventTarget {
   onend: (() => void) | null;
   onerror: ((event: SpeechRecognitionErrorEvent) => void) | null;
   onresult: ((event: SpeechRecognitionEvent) => void) | null;
+  onnomatch: (() => void) | null;
   start: () => void;
   stop: () => void;
 }
@@ -47,46 +47,37 @@ const useVoiceSearch = () => {
       alert("Voice search is not supported on this browser.")
       return
     }
+
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
-
-    if (!SpeechRecognition) {
-      alert("Speech recognition is not supported in this browser.")
-      return
-    }
-
     const recognition = new SpeechRecognition()
+
     recognition.continuous = false
     recognition.lang = "en-US"
     recognition.interimResults = false
     recognition.maxAlternatives = 1
 
-    let silenceTimeout: NodeJS.Timeout
-
     recognition.onstart = () => {
       setListening(true)
-
-     
-      silenceTimeout = setTimeout(() => {
-        recognition.stop()
-      }, 5000)
     }
 
     recognition.onresult = (event: SpeechRecognitionEvent) => {
-      clearTimeout(silenceTimeout)
       const transcript = event.results[0][0].transcript
       onResult(transcript)
       recognition.stop()
     }
 
     recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
-      console.error("Speech recognition error:", event)
-      clearTimeout(silenceTimeout)
+      console.error("Speech recognition error:", event.error)
+      setListening(false)
+    }
+
+    recognition.onnomatch = () => {
+      console.warn("No speech match")
       setListening(false)
     }
 
     recognition.onend = () => {
-      clearTimeout(silenceTimeout)
-      setListening(false)
+      setTimeout(() => setListening(false), 300) // smoother UX
     }
 
     recognition.start()
