@@ -1,8 +1,8 @@
-// src/components/Header/SignInDialog.jsx
 import styled from 'styled-components';
+import { useEffect } from 'react';
 import { FcGoogle } from "react-icons/fc";
 import { auth } from '../firebase';
-import { signInWithPopup, signInWithRedirect, GoogleAuthProvider } from 'firebase/auth';
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 
 const Overlay = styled.div`
   position: fixed;
@@ -40,7 +40,7 @@ const Dialog = styled.div`
   h2 {
     margin: 0;
     font-size: 20px;
-
+    
     @media (max-width: 480px) {
       font-size: 18px;
     }
@@ -49,7 +49,7 @@ const Dialog = styled.div`
   p {
     font-size: 14px;
     color: #dadce0;
-
+    
     @media (max-width: 480px) {
       font-size: 13px;
     }
@@ -109,14 +109,8 @@ const SignInDialog: React.FC<SignInDialogProps> = ({ onClose }) => {
   const handleGoogleSignIn = async () => {
     try {
       const provider = new GoogleAuthProvider();
-      const isMobile = window.innerWidth < 768;
-
-      if (isMobile) {
-        await signInWithRedirect(auth, provider);
-      } else {
-        await signInWithPopup(auth, provider);
-        onClose();
-      }
+      await signInWithPopup(auth, provider);
+      onClose();
     } catch (error) {
       console.error('Error signing in with Google:', error);
     }
